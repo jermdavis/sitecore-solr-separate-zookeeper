@@ -10,8 +10,6 @@ services:
         target: c:\data
     environment:
       SOLR_MODE: solrcloud
-      SOLR_LOG_LEVEL: FINEST
-      ZOOKEEPER_LOG_STDOUT_THRESHOLD: ALL
     healthcheck:
       test: ["CMD", "powershell", "-command", "try { $$statusCode = (iwr http://solr:8983/solr/admin/cores?action=STATUS -UseBasicParsing).StatusCode; if ($$statusCode -eq 200) { exit 0 } else { exit 1} } catch { exit 1 }"]
       
