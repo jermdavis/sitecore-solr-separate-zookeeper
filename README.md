@@ -17,6 +17,9 @@ For simplicity, I've added some shortcut scripts. Once you've cloned the reposit
 2) Run `up.ps1` to start SolrCloud and run Sitecore's `solr-init` job image
 3) Run `down.ps1` to stop the containers
 
+Other than for testing, it's not expected that you'd use this on its own. It's an example for what changes you
+might make to your existing project's docker config to enable this approach for your work.
+
 This was worked out as an extension to Sitecore's v10.2 docker config, but by changing the base image versions 
 for Sitecore, Solr and Solr-Init in the compose and environment files, it should work with most recent versions.
 v10.3's OTB docker compose files seem to run fine with it. But I've not tested others (or other customisations
