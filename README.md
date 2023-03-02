@@ -1,4 +1,4 @@
-# Sitecore developer Solr image with separate zookeeper
+# Sitecore developer Solr image with separate ZooKeeper
 
 On some computers, I've found that Sitecore's standard developer image for Solr does not start reliably.
 I <a href="https://blog.jermdavis.dev/posts/2022/docker-zookeeper-solr-fail">wrote about the behaviour of the
