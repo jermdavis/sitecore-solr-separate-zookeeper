@@ -1,0 +1,13 @@
+version: "2.4"
+services:
+
+  solr:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}solr:8.8.2-${SITECORE_VERSION}
+    build:
+      context: ./docker/build/solr
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}nonproduction/solr:8.8.2-${SITECORE_VERSION}
+    volumes:
+      - type: bind
+        source: .\docker\data\solr
+        target: c:\data

@@ -1,0 +1,26 @@
+services:
+  solr:
+    isolation: hyperv
+    image: ${SITECORE_DOCKER_REGISTRY}nonproduction/solr:8.8.2-${SITECORE_VERSION}
+    ports:
+      - "8984:8983"
+    volumes:
+      - type: bind
+        source: .\solr-data
+        target: c:\data
+    environment:
+      SOLR_MODE: solrcloud
+      SOLR_LOG_LEVEL: FINEST
+      ZOOKEEPER_LOG_STDOUT_THRESHOLD: ALL
+    healthcheck:
+      test: ["CMD", "powershell", "-command", "try { $$statusCode = (iwr http://solr:8983/solr/admin/cores?action=STATUS -UseBasicParsing).StatusCode; if ($$statusCode -eq 200) { exit 0 } else { exit 1} } catch { exit 1 }"]
+      
+  solr-init:
+    isolation: ${ISOLATION}
+    image: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-solr-init:${SITECORE_VERSION}
+    environment:
+      SITECORE_SOLR_CONNECTION_STRING: http://solr:8983/solr
+      SOLR_CORE_PREFIX_NAME: ${SOLR_CORE_PREFIX_NAME}
+    depends_on:
+      solr:
+        condition: service_healthy
